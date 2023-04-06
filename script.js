@@ -23,10 +23,8 @@ async function renderTableWithPagination(pageNumber = 1) {
 
         const { data, pagination } = await response.json();
         const perPage = pagination.per_page;
-        const start = (pageNumber - 1) * perPage;
-        const end = start + perPage;
-        const currentData = data.slice(start, end);
-        const tableRows = renderTableRows(currentData);
+
+        const tableRows = renderTableRows(data);
 
         const tbody = document.getElementById("my-tbody");
         tbody.innerHTML = "";
@@ -112,8 +110,7 @@ function renderTableRows(data) {
         buttonCell.appendChild(button);
         row.appendChild(buttonCell);
 
-        const tbody = document.getElementById("my-tbody");
-        tbody.appendChild(row);
+        tableRows.push(row);
     });
     return tableRows;
 };
